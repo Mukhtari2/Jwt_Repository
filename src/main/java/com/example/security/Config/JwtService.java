@@ -20,15 +20,11 @@ public class JwtService {
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
-
-
     }
-
 
     public <T> T extractClaim(String token, Function<Claims, T> claimResolver){
         final Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
-
     }
 
     private Claims extractAllClaims(String token){
@@ -41,9 +37,8 @@ public class JwtService {
     }
 
     private SecretKey getSecreteKey() {
-        byte [] keyToBeDecoded = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyToBeDecoded);
+        byte [] decodedKey = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(decodedKey);
     }
-
 
 }
